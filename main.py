@@ -1,2 +1,5 @@
+from backup import BackupSetting
 if __name__ == '__main__':
-    print('Initial point')
+    backup_pars = BackupSetting('backup_settings.json')
+    backup_pars.load_setting()
+
