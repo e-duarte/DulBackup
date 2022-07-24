@@ -1,0 +1,5 @@
+[INFO]:*** Dulbackup started***
+[INFO]:*** Dulbackup started***
+[INFO]:*** Dulbackup started***
+[INFO]:*** Dulbackup started***	2022-07-24 15:36:20,672
+[INFO]:*** Dulbackup started***	2022-07-24 15:37:09,527
