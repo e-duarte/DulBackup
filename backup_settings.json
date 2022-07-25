@@ -1,6 +1,5 @@
 {
-    "source_folders": [],
-    "destination_folder": "",
-    "log_path": "",
-    "scheduling": ""
+    "source_folders": ["/home/ewerton/Documents/Dulcineia/Avaliações do MEC"],
+    "destination_folder": "./output",
+    "scheduling": "12:00"
 }
