@@ -6,13 +6,16 @@ import logging
 import zipfile
 import os
 
+from numpy import append
+
 class BackupSetting:
     def __init__(self, setting_path):
         self.setting_path = setting_path
         self.source_folders = []
         self.destination_folders = Path()
         self.log_path = Path()
-        self.schedule = Path()
+        self.schedule = ''
+        self.allowed_extesions = []
 
     def load_setting(self):
         try:
@@ -20,10 +23,11 @@ class BackupSetting:
                 json_formated_text = setting_file.read().replace('\\', '\\\\')
                 setting = loads(json_formated_text)
 
-            self.source_folders = [ Path(path) for path in setting['source_folders']]
+            self.source_folders = [Path(path) for path in setting['source_folders']]
             self.destination_folder = Path(setting['destination_folder'])
-            self.log_path = Path(setting['log_path'])
-            self.schedule = Path(setting['scheduling'])
+            # self.log_path = Path(setting['log_path'])
+            self.scheduling = setting['scheduling']
+            self.allowed_extesions = setting['allowed_extesions']
 
         except JSONDecodeError:
             logging.error(f'{self.setting_path} file is not valid Json')
@@ -45,22 +49,23 @@ class BackupSetting:
 
 class ZipDocsBackup:
     def __init__(self, zip_src):
-        filename = zip_src / f"backup_{datetime.today().strftime('%Y-%m-%d')}.zip"
+        filename_path = zip_src / 'backup_files' / f"backup_{datetime.today().strftime('%Y-%m-%d')}.zip"
+
+        if not filename_path.exists():
+            os.mkdir(filename_path.parent)
 
         self.zip_obj = zipfile.ZipFile(
-            filename,
+            filename_path,
             'w',
             zipfile.ZIP_DEFLATED
         )
 
     def add_dir(self, dir_path, allowed_files):
-        suffixes = [f'.{sufix}' for sufix in allowed_files]
-
         try:
             for root, _, filenames in os.walk(dir_path):
                 for filename in filenames:
                     filename = Path(filename)
-                    if filename.suffix in suffixes:
+                    if filename.suffix in allowed_files:
                         absolute_path_file = root / filename
                         
                         self.zip_obj.write(

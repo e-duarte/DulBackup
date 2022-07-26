@@ -1,28 +1,20 @@
 from dulbackup.util import BackupSetting, ZipDocsBackup
-import logging
+from dulbackup.backup import Backup
+
 from pathlib import Path
+import logging
+import os
+
+
+def create_directory(path):
+    if not path.exists():
+        os.mkdir(path.parent)
 
 def main():
     SETTING_PATH = Path('./backup_settings.json')
     LOG_PATH = Path('./output/log.txt')
-    
-    allowed_files = [
-        '',
-        'pdf', 
-        'txt',
-        'odt',
-        'doc',
-        'docx',
-        'csv',
-        'xls',
-        'xlsx',
-        'pot',
-        'potx',
-        'png',
-        'jpg',
-        'jpeg'
-    ]
 
+    create_directory(LOG_PATH)
     logging.basicConfig(filename=LOG_PATH,format='[%(levelname)s]:%(message)s\t%(asctime)s',  level=logging.DEBUG)
 
     logging.info('*** Dulbackup started***')
@@ -31,12 +23,10 @@ def main():
     backup_pars = BackupSetting(SETTING_PATH)
     backup_pars.load_setting()
 
+    zip_handler = ZipDocsBackup(Path(backup_pars.destination_folder))
 
-    zip_backup = ZipDocsBackup(Path(backup_pars.destination_folder))
-
-    zip_backup.add_dir(backup_pars.source_folders[0], allowed_files)
-
-    zip_backup.close_zipfile()
+    backup = Backup(backup_pars, zip_handler)
+    backup.start_backup()
     
 if __name__ == '__main__':
     main()
