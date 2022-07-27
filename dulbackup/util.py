@@ -1,12 +1,9 @@
-from fileinput import filename
 from json import loads, JSONDecodeError
 from datetime import datetime
 from pathlib import Path
 import logging
 import zipfile
 import os
-
-from numpy import append
 
 class BackupSetting:
     def __init__(self, setting_path):
@@ -51,12 +48,14 @@ class ZipDocsBackup:
     def __init__(self, zip_src):
         filename_path = zip_src / 'backup_files' / f"backup_{datetime.today().strftime('%Y-%m-%d')}.zip"
 
-        if not filename_path.exists():
+        if not filename_path.parent.exists():
             os.mkdir(filename_path.parent)
+
+        # mode = 'a' if filename_path.exists() else 'w'
 
         self.zip_obj = zipfile.ZipFile(
             filename_path,
-            'w',
+            'a' if filename_path.exists() else 'w',
             zipfile.ZIP_DEFLATED
         )
 

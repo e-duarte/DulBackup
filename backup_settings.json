@@ -1,10 +1,10 @@
 {
     "source_folders": [
-        "/home/ewerton/Documents/Dulcineia/Avaliações do MEC",
-        "/home/ewerton/Documents/Courses"
+        "\\VITOR\Documentos\Monografia Natalia",
+        "C:\Users\ewert\Documents\teste"
     ],
     "destination_folder": "./output",
-    "scheduling": "23:24",
+    "scheduling": "14:41",
     "allowed_extesions": [
         "",
         ".pdf", 
