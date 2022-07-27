@@ -1,5 +1,8 @@
 {
-    "source_folders": ["/home/ewerton/Documents/Dulcineia/Avaliações do MEC", "/home/ewerton/Documents/Courses", "/media/ewerton/20E23F18E23EF1A0/Users/ewert/Documents/DULCINEIA/scripts"],
+    "source_folders": [
+        "/home/ewerton/Documents/Dulcineia/Avaliações do MEC",
+        "/home/ewerton/Documents/Courses"
+    ],
     "destination_folder": "./output",
     "scheduling": "23:24",
     "allowed_extesions": [
