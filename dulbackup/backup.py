@@ -2,6 +2,16 @@ import schedule
 import logging
 import time
 
+class SchelingMethod:
+    def start_scheduling():
+        pass
+
+class SchedulingByTime(SchelingMethod):
+    pass
+
+class SchedulginByFileEvent(SchelingMethod):
+    pass
+
 class Backup:
     def __init__(self, backup_settings, zip_handler):
         self.backup_settings = backup_settings
