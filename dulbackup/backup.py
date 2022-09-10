@@ -3,7 +3,7 @@ import logging
 import time
 
 class SchelingMethod:
-    def start_scheduling():
+    def start_scheduling() -> None:
         pass
 
 class SchedulingByTime(SchelingMethod):
@@ -13,7 +13,7 @@ class SchedulginByFileEvent(SchelingMethod):
     pass
 
 class Backup:
-    def __init__(self, backup_settings, zip_handler):
+    def __init__(self, backup_settings, zip_handler, method: SchelingMethod):
         self.backup_settings = backup_settings
         self.zip_handler= zip_handler
 
